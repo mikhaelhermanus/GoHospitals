@@ -7,13 +7,14 @@ import Header from '../component/Header'
 import HotSales from '../component/HotSales'
 
 
-const IndexHome = () => {
+const IndexHome = props => {
+  const navigation = props.navigation
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header navigation={navigation} />
       <Category />
-      <FashionList />
-      <HotSales />
+      <FashionList navigation={navigation} />
+      <HotSales navigation={navigation} />
     </SafeAreaView>
   )
 }

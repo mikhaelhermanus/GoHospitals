@@ -5,7 +5,8 @@ import { CardItem } from './CardItem'
 
 
 
-const HotSales = () => {
+const HotSales = props => {
+    const navigation = props.navigation
     return (
         <View style={styles.container}>
             <View style={styles.containerTitle}>
@@ -14,7 +15,7 @@ const HotSales = () => {
             </View>
             <FlatList
                 data={data}
-                renderItem={({ item, index }) => <CardItem item={item} index={index} hotSales={true} />}
+                renderItem={({ item, index }) => <CardItem item={item} index={index} hotSales={true} navigation={navigation} />}
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 contentContainerStyle={{ margin: 10 }}

@@ -2,41 +2,64 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import colors from '../assets/colors'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
 
 const Header = props => {
-    return (
-        <View style={styles.containerTop}>
-            <View style={styles.containerHeader}>
-                <View style={{ flexDirection: 'column' }}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.avatarCircle} />
-                        <View style={{ flexDirection: 'column' }}>
-                            <Text style={[styles.fontStyle, { marginTop: 10 }]}>Hi</Text>
-                            <Text style={styles.fontStyle}>Find Your Favorite Items</Text>
+    const pdp = props.pdp
+    const navigation = props.navigation
+    const pdpHeader = () => {
+        return (
+            <View style={{ justifyContent: 'space-between', flexDirection: 'row', margin: 10 }}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Ionicons style={{ alignSelf: 'center' }} size={25} color={colors.black} name='arrow-back' />
+                </TouchableOpacity>
+                <Text style={styles.headerTitle}>QuickView</Text>
+                <View style={styles.borderCart}>
+                    <AntDesign name='heart' color={colors.red} size={25} />
+                </View>
+            </View>
+        )
+    }
+    if (pdp) {
+        return pdpHeader()
+    } else {
+        return (
+            < View style={styles.containerTop} >
+                <View style={styles.containerHeader}>
+                    <View style={{ flexDirection: 'column' }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={styles.avatarCircle} />
+                            <View style={{ flexDirection: 'column' }}>
+                                <Text style={[styles.fontStyle, { marginTop: 10 }]}>Hi</Text>
+                                <Text style={styles.fontStyle}>Find Your Favorite Items</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.borderCart}>
+                        <AntDesign color={colors.blueSea} name='shoppingcart' size={30} />
+                    </View>
+                </View>
+                <View style={{ margin: 10 }}>
+                    <View style={styles.containerSearch}>
+                        <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                            <AntDesign name='search1' size={25} color={colors.grayContact} />
+                            <TextInput
+                                placeholder='Search...'
+                                style={{ marginLeft: 10 }}
+                                placeholderTextColor={colors.grayContact}
+                            />
                         </View>
                     </View>
                 </View>
-                <View style={styles.borderCart}>
-                    <AntDesign color={colors.blueSea} name='shoppingcart' size={30} />
-                </View>
-            </View>
-            <View style={{ margin: 10 }}>
-                <View style={styles.containerSearch}>
-                    <View style={{ flexDirection: 'row', marginLeft : 10 }}>
-                        <AntDesign name='search1' size={25} color={colors.grayContact} />
-                        <TextInput
-                            placeholder='Search...'
-                            style={{marginLeft : 10}}
-                            placeholderTextColor={colors.grayContact}
-                        />
-                    </View>
-                </View>
-            </View>
 
-        </View>
-    )
+            </View >
+        )
+    }
+
+
+
 }
 
 export default Header
@@ -83,5 +106,11 @@ const styles = StyleSheet.create({
         height: 40,
         borderWidth: 1,
         justifyContent: 'center',
-    }
+    },
+    headerTitle: {
+        fontSize: 16,
+        color: colors.black,
+        fontWeight: 'bold',
+        alignSelf: 'center'
+    },
 })

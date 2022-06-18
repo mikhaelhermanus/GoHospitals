@@ -10,6 +10,7 @@ import HomeScreen from './src/screen/HomeScreen';
 import TabBar from './src/component/TabBar';
 import AppointmentHitory from './src/screen/AppointmentHistory';
 import IndexHome from './src/screen/IndexHome';
+import ProductDetailPage from './src/screen/ProductDetailPage';
 
 
 
@@ -26,6 +27,7 @@ const App = () => {
         {/* <Stack.Screen name="TabBar" component={TabBar} />
         <Stack.Screen name="AppointmentHistory" component={AppointmentHitory} /> */}
         <Stack.Screen name="IndexHome" component={IndexHome} />
+        <Stack.Screen name="ProductDetailPage" component={ProductDetailPage} />
       </Stack.Navigator>
     </NavigationContainer>
   )

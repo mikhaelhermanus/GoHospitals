@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, FlatList } from 'react-native'
 import colors from '../assets/colors'
 import { CardItem } from './CardItem'
 
-const FashionList = () => {
+const FashionList = props => {
+    const navigation = props.navigation
     return (
         <View style={styles.container}>
             <View style={styles.containerTitle}>
@@ -12,7 +13,7 @@ const FashionList = () => {
             </View>
             <FlatList
                 data={data}
-                renderItem={({ item, index }) => <CardItem item={item} index={index} />}
+                renderItem={({ item, index }) => <CardItem item={item} index={index} navigation={navigation}/>}
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
             />

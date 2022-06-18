@@ -3,9 +3,11 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import colors from '../assets/colors'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
+import RatingStar from './RatingStar'
 
 
 export const CardItem = props => {
+    const navigation = props.navigation
     const itemData = props.item
     const hotSales = props.hotSales
     const ratingArr = []
@@ -20,7 +22,7 @@ export const CardItem = props => {
         }
 
         return (
-            <View style={{ flexDirection: 'row', marginTop : 10 }}>
+            <View style={{ flexDirection: 'row', marginTop: 10 }}>
                 {
                     ratingArr.map((rate, index) => (
                         <View key={`stars ${index} ${rate}`}>
@@ -30,17 +32,21 @@ export const CardItem = props => {
                                 : <Entypo name='star' size={20} color={colors.yellow} />}
                         </View>
                     ))
-                   
+
                 }
-                 {hotSales ? <Text style={{marginLeft : 10, alignSelf : 'center', fontSize : 12, color : colors.black}}>({itemData.rating_count} Ratings)</Text> : null}
+                {hotSales ? <Text style={{ marginLeft: 10, alignSelf: 'center', fontSize: 12, color: colors.black }}>({itemData.rating_count} Ratings)</Text> : null}
             </View>
         )
 
     }
 
+    const goToDetailPage = (item) => {
+        navigation.navigate('ProductDetailPage', { item })
+    }
+
 
     return (
-        <View key={itemData.index} style={hotSales ? styles.cardContainerHotSales : styles.cardContainer}>
+        <TouchableOpacity onPress={() => goToDetailPage(itemData)} key={itemData.index} style={hotSales ? styles.cardContainerHotSales : styles.cardContainer}>
             <View style={{ alignItems: 'flex-end', flex: 1 }}>
                 <TouchableOpacity style={styles.buttonWishlist}>
                     <AntDesign style={{ alignItems: 'flex-end' }} name='hearto' size={22} color={colors.redBadgeInvoice} />
@@ -57,17 +63,19 @@ export const CardItem = props => {
                                     <Text style={styles.fontPrice}>${itemData.price}</Text>
                                 </View>
                             </View>
-                            {renderStarRating(itemData.rating)}
+                            <RatingStar rating={itemData.rating} hotSales={hotSales} totalRating={itemData.rating_count}/>
+                            {/* {renderStarRating(itemData.rating)} */}
                         </>
                         : <>
                             <Text style={styles.fontTitle}>{itemData.title}</Text>
-                            {renderStarRating(itemData.rating)}
+                            <RatingStar rating={itemData.rating} hotSales={hotSales}/>
+                            {/* {renderStarRating(itemData.rating)} */}
                             <Text style={styles.fontPrice}>${itemData.price}</Text>
                         </>
                 }
 
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
