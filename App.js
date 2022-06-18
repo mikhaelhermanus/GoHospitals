@@ -9,6 +9,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screen/HomeScreen';
 import TabBar from './src/component/TabBar';
 import AppointmentHitory from './src/screen/AppointmentHistory';
+import IndexHome from './src/screen/IndexHome';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -21,8 +23,9 @@ const App = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="TabBar" component={TabBar} />
-        <Stack.Screen name="AppointmentHistory" component={AppointmentHitory} />
+        {/* <Stack.Screen name="TabBar" component={TabBar} />
+        <Stack.Screen name="AppointmentHistory" component={AppointmentHitory} /> */}
+        <Stack.Screen name="IndexHome" component={IndexHome} />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -27,4 +27,6 @@ export default {
     trackingPickup: '#66C8F7',
     trackingProcess: '#F5D656',
     blueTheme: '#57B7DD',
+    blueSky : '#B9F5FF',
+    blueSea : '#2786E4'
 };
