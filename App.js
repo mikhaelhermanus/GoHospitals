@@ -1,23 +1,26 @@
 import React from 'react';
 import {
-  View,
-  Text,
   StyleSheet
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './src/screen/HomeScreen';
-import TabBar from './src/component/TabBar';
-import AppointmentHitory from './src/screen/AppointmentHistory';
+// import HomeScreen from './src/screen/HomeScreen';
+// import TabBar from './src/component/TabBar';
+// import AppointmentHitory from './src/screen/AppointmentHistory';
 import IndexHome from './src/screen/IndexHome';
 import ProductDetailPage from './src/screen/ProductDetailPage';
+//redux
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import allReducers from './src/redux/reducer';
 
-
+const store = createStore(allReducers, {}, applyMiddleware(ReduxThunk))
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -30,6 +33,7 @@ const App = () => {
         <Stack.Screen name="ProductDetailPage" component={ProductDetailPage} />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   )
 };
 

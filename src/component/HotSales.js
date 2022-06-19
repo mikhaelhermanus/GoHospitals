@@ -1,25 +1,43 @@
-import React from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import React, { useEffect } from 'react'
+import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
 import colors from '../assets/colors'
 import { CardItem } from './CardItem'
+//redux
+import { useDispatch, useSelector } from 'react-redux'
+import { getHotSales } from '../redux/screenAction/NewFashionRedux/action'
+
 
 
 
 const HotSales = props => {
+    const dispatch = useDispatch()
     const navigation = props.navigation
+
+    useEffect(() => {
+        dispatch(getHotSales())
+    }, [])
+
+    const { listHotSales, loadingHotSales, errHotSales } = useSelector(state => state.NewFashionReducerAuth)
+
     return (
         <View style={styles.container}>
             <View style={styles.containerTitle}>
                 <Text style={styles.fontTitle}>Hot Sales</Text>
                 <Text style={styles.fontView}>View All</Text>
             </View>
-            <FlatList
-                data={data}
-                renderItem={({ item, index }) => <CardItem item={item} index={index} hotSales={true} navigation={navigation} />}
-                showsHorizontalScrollIndicator={false}
-                horizontal={true}
-                contentContainerStyle={{ margin: 10 }}
-            />
+            {
+                loadingHotSales ? <ActivityIndicator color={colors.blueSea} size='large' /> :
+                errHotSales ?
+                        <Text color={colors.red}>Something Went Wrong</Text> :
+                        <FlatList
+                            data={listHotSales}
+                            renderItem={({ item, index }) => <CardItem item={item} index={index} hotSales={true} navigation={navigation} />}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal={true}
+                            contentContainerStyle={{ margin: 10 }}
+                        />
+            }
+
         </View>
     )
 }

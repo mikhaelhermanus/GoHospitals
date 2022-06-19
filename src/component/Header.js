@@ -11,14 +11,16 @@ const Header = props => {
     const navigation = props.navigation
     const pdpHeader = () => {
         return (
+            <View style={{backgroundColor : colors.blueSky}}>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', margin: 10 }}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Ionicons style={{ alignSelf: 'center' }} size={25} color={colors.black} name='arrow-back' />
+                    <Ionicons style={{ alignSelf: 'center', marginTop : 10 }} size={25} color={colors.black} name='arrow-back' />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>QuickView</Text>
                 <View style={styles.borderCart}>
                     <AntDesign name='heart' color={colors.red} size={25} />
                 </View>
+            </View>
             </View>
         )
     }
