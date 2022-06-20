@@ -25,7 +25,6 @@ const ProductDisplay = props => {
             price: itemDetail.price
 
         }
-        console.log(product, 'line 15')
         dispatch(updateCart(product))
         navigation.navigate('IndexHome')
     }

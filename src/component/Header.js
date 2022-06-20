@@ -81,8 +81,7 @@ const Header = props => {
                     </View>
                     <View style={styles.borderCart}>
                         <View style={styles.containerCartQty}>
-                            {/* <ActivityIndicator size='small' color={colors.blueSea}/> */}
-                            <Text style={{ color: '#ffffff', textAlign: 'center', fontSize: 12, marginBottom: (Platform.OS === 'ios' ? 0 : 2) }}>{cartTotal}</Text>
+                            <Text style={{ color: '#ffffff', textAlign: 'center', fontSize: 10, marginBottom: (Platform.OS === 'ios' ? 0 : 2) }}>{cartTotal}</Text>
                         </View>
                         <AntDesign color={colors.blueSea} name='shoppingcart' size={30} />
                     </View>

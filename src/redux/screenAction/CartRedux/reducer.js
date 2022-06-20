@@ -7,7 +7,6 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-    console.log(action.payload, 'line payload')
     switch (action.type) {
         case UPDATE_CART_REQUEST:
             return { ...state, loadingCart: true }
