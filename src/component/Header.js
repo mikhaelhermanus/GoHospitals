@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Platform } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Platform, Image } from 'react-native'
 import colors from '../assets/colors'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { launchImageLibrary } from 'react-native-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //redux
 import { useSelector } from 'react-redux'
 
 const Header = props => {
     const [wishlist, setWishlist] = useState('')
+    const [avatar, setAvatar] = useState(null)
     const pdp = props.pdp
     const itemDetail = props.itemDetail
     const navigation = props.navigation
@@ -17,10 +20,31 @@ const Header = props => {
 
     useEffect(() => {
         setWishlist(itemDetail?.is_favorite)
+        getAvatar()
     }, [])
+
+    const getAvatar = async () => {
+        const value = await AsyncStorage.getItem('avatar')
+        setAvatar(value)
+    }
 
     const toogleWishlist = () => {
         setWishlist(!wishlist)
+    }
+
+    const handleChangeAvatar = () => {
+        const options = {
+            quality: 0.9,
+            title: 'Load Photo',
+        }
+        launchImageLibrary(options, response => {
+            if (response.didCancel) {
+                console.log('canceledd ..')
+            } else {
+                setAvatar(response?.assets[0]?.uri)
+                AsyncStorage.setItem('avatar', response?.assets[0]?.uri)
+            }
+        })
     }
 
     const pdpHeader = () => {
@@ -46,7 +70,9 @@ const Header = props => {
                 <View style={styles.containerHeader}>
                     <View style={{ flexDirection: 'column' }}>
                         <View style={{ flexDirection: 'row' }}>
-                            <View style={styles.avatarCircle} />
+                            <TouchableOpacity onPress={() => handleChangeAvatar()}>
+                                <Image style={styles.avatarCircle} source={{ uri: avatar }} />
+                            </TouchableOpacity>
                             <View style={{ flexDirection: 'column' }}>
                                 <Text style={[styles.fontStyle, { marginTop: 10 }]}>Hi</Text>
                                 <Text style={styles.fontStyle}>Find Your Favorite Items</Text>
@@ -64,7 +90,7 @@ const Header = props => {
                 <View style={{ margin: 10 }}>
                     <View style={styles.containerSearch}>
                         <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                            <AntDesign name='search1' size={25} color={colors.grayContact} />
+                            <AntDesign style={{ alignSelf: 'center' }} name='search1' size={25} color={colors.grayContact} />
                             <TextInput
                                 placeholder='Search...'
                                 style={{ marginLeft: 10 }}
@@ -102,9 +128,11 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 25,
         borderWidth: 1,
-        borderColor: colors.black
+        borderColor: colors.black,
+        marginTop: 10
     },
     fontStyle: {
+        color: colors.black,
         fontSize: 16,
         fontWeight: 'bold',
         marginHorizontal: 10,

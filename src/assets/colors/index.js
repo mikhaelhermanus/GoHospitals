@@ -10,6 +10,7 @@ export default {
     grayHeader: '#e8e6e6',
     green: '#76D672',
     greenOperate: '#59ad24',
+    grayBorder : '#8F9DBD',
     red: '#D70C27',
     orange: '#ffa800',
     orangeQonstanta: '#F3752F',

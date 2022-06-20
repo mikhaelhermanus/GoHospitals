@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import colors from '../assets/colors'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import Entypo from 'react-native-vector-icons/Entypo'
 import RatingStar from './RatingStar'
 
 
@@ -59,24 +58,42 @@ export const CardItem = props => {
 const styles = StyleSheet.create({
     cardContainer: {
         width: 150,
-        borderWidth: 2,
+        borderWidth: 1,
         backgroundColor: colors.white,
         borderColor: colors.grayHeader,
         borderRadius: 10,
         paddingBottom: 15,
         padding: 15,
         marginVertical: 10,
-        marginLeft: 10
+        marginLeft: 10,
+        elevation: 2,
+        borderWidth: 2,
+        shadowColor: 'rgba(128, 131, 140, 0.15)',
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+          height: 5,
+          width: 5
+        }
     },
     cardContainerHotSales: {
         width: 220,
-        borderWidth: 2,
+        borderWidth: 1,
         backgroundColor: colors.white,
         borderColor: colors.grayHeader,
         borderRadius: 10,
         paddingBottom: 15,
         padding: 15,
-        marginLeft: 10
+        marginLeft: 10,
+        elevation: 2,
+        borderWidth: 2,
+        shadowColor: 'rgba(128, 131, 140, 0.15)',
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+          height: 5,
+          width: 5
+        }
     },
     containerPriceInfo: {
         alignItems: 'center',

@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, FlatList, RefreshControl } from 'react-native'
+import { SafeAreaView, StyleSheet, FlatList, RefreshControl, Text } from 'react-native'
 import colors from '../assets/colors'
 import Category from '../component/Category'
 import FashionList from '../component/FashionList'
 import Header from '../component/Header'
 import HotSales from '../component/HotSales'
-import StatusBar from '../component/StatusBar'
 
 const IndexHome = props => {
   const navigation = props.navigation
@@ -17,7 +16,7 @@ const IndexHome = props => {
   }
 
   return (
-    <SafeAreaView style={styles.container} forceInset={{ top: 'never' }}>
+    <SafeAreaView style={styles.container} forceInset={{top: 'never'}}>
       <Header navigation={navigation} />
       <FlatList
         data={[

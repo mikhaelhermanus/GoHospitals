@@ -14,6 +14,8 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import allReducers from './src/redux/reducer';
+import StatusBarPlaceHolder from './src/component/StatusBar';
+
 
 const store = createStore(allReducers, {}, applyMiddleware(ReduxThunk))
 
@@ -21,18 +23,19 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        {/* <Stack.Screen name="TabBar" component={TabBar} />
+      <StatusBarPlaceHolder />
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          {/* <Stack.Screen name="TabBar" component={TabBar} />
         <Stack.Screen name="AppointmentHistory" component={AppointmentHitory} /> */}
-        <Stack.Screen name="IndexHome" component={IndexHome} />
-        <Stack.Screen name="ProductDetailPage" component={ProductDetailPage} />
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen name="IndexHome" component={IndexHome} />
+          <Stack.Screen name="ProductDetailPage" component={ProductDetailPage} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   )
 };
