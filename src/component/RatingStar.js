@@ -9,7 +9,7 @@ const RatingStar = props => {
     const totalRating = props.totalRating
     const ratingArr = []
     for (let i = 0; i < 5; i++) {
-        if (i <= star) {
+        if (i < star) {
             ratingArr.push('positive')
         } else {
             ratingArr.push('negative')

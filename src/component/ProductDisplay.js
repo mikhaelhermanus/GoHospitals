@@ -1,15 +1,35 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
 import colors from '../assets/colors'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import RatingStar from './RatingStar'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import LinearGradient from 'react-native-linear-gradient'
+//redux
+import { updateCart } from '../redux/screenAction/CartRedux/action'
+import { useDispatch } from 'react-redux'
 
 const ProductDisplay = props => {
     const [selectColor, setSelectColor] = useState(0)
     const [size, setSize] = useState('S')
     const itemDetail = props.itemDetail
+    const navigation = props.navigation
+
+    const dispatch = useDispatch()
+  
+    const addToCartAction = () => {
+        const product = {
+            id: itemDetail.id,
+            name: itemDetail.title,
+            image: itemDetail.image,
+            price: itemDetail.price
+
+        }
+        console.log(product, 'line 15')
+        dispatch(updateCart(product))
+        navigation.navigate('IndexHome')
+    }
+
     return (
         <>
             <LinearGradient colors={[colors.blueSky, colors.blueSky, colors.white]} style={styles.linearGradient}>
@@ -45,7 +65,7 @@ const ProductDisplay = props => {
                 <Text style={[styles.textTitleProduct, { marginTop: 10 }]}>Description</Text>
                 <Text style={[styles.textSubTitleProduct, { marginTop: 10 }]}>{itemDetail.description}</Text>
                 <Text style={styles.textPrice}>${itemDetail.price}</Text>
-                <TouchableOpacity style={styles.buttonAddtoCart}>
+                <TouchableOpacity onPress={() => addToCartAction()} style={styles.buttonAddtoCart}>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={{ fontSize: 20, color: colors.white, fontWeight: 'bold' }}>Add To Cart</Text>
                         <MaterialCommunityIcons style={{ marginLeft: 10 }} name='cart-plus' size={25} color={colors.white} />
@@ -107,6 +127,6 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     linearGradient: {
-     paddingBottom : 10
+        paddingBottom: 10
     },
 })

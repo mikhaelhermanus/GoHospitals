@@ -12,8 +12,8 @@ const ProductDetailPage = props => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header navigation={navigation} pdp={true} />
-            <ProductDisplay itemDetail={itemDetail} />
+            <Header navigation={navigation} pdp={true} itemDetail={itemDetail} />
+            <ProductDisplay itemDetail={itemDetail} navigation={navigation} />
         </SafeAreaView>
     )
 }

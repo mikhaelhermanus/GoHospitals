@@ -9,10 +9,16 @@ import { getNewFashion } from '../redux/screenAction/HotSalesRedux/action'
 
 const FashionList = props => {
     const dispatch = useDispatch()
-
+    const refresh = props.refresh
     useEffect(() => {
         dispatch(getNewFashion())
     }, [])
+
+    useEffect(() => {
+        if (refresh) {
+            dispatch(getNewFashion())
+        }
+    }, [refresh])
 
     const { listFashion, loadingFash, errFash } = useSelector(state => state.HotSalesReducerAuth)
     const navigation = props.navigation

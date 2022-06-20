@@ -7,15 +7,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getHotSales } from '../redux/screenAction/NewFashionRedux/action'
 
 
-
-
 const HotSales = props => {
     const dispatch = useDispatch()
     const navigation = props.navigation
+    const refresh = props.refresh
 
     useEffect(() => {
         dispatch(getHotSales())
     }, [])
+
+    useEffect(() => {
+        if (refresh) {
+            dispatch(getHotSales())
+        }
+    }, [refresh])
 
     const { listHotSales, loadingHotSales, errHotSales } = useSelector(state => state.NewFashionReducerAuth)
 
@@ -27,7 +32,7 @@ const HotSales = props => {
             </View>
             {
                 loadingHotSales ? <ActivityIndicator color={colors.blueSea} size='large' /> :
-                errHotSales ?
+                    errHotSales ?
                         <Text color={colors.red}>Something Went Wrong</Text> :
                         <FlatList
                             data={listHotSales}

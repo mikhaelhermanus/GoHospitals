@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import colors from '../assets/colors'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -7,49 +7,28 @@ import RatingStar from './RatingStar'
 
 
 export const CardItem = props => {
+    const [wishlist, setWishlist] = useState('')
     const navigation = props.navigation
     const itemData = props.item
     const hotSales = props.hotSales
-    const ratingArr = []
-
-    const renderStarRating = (star) => {
-        for (let i = 0; i < 5; i++) {
-            if (i <= star) {
-                ratingArr.push('positive')
-            } else {
-                ratingArr.push('negative')
-            }
-        }
-
-        return (
-            <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                {
-                    ratingArr.map((rate, index) => (
-                        <View key={`stars ${index} ${rate}`}>
-                            {(rate === 'negative')
-                                ? <Entypo name='star' size={20} color={colors.grayHeader} />
-
-                                : <Entypo name='star' size={20} color={colors.yellow} />}
-                        </View>
-                    ))
-
-                }
-                {hotSales ? <Text style={{ marginLeft: 10, alignSelf: 'center', fontSize: 12, color: colors.black }}>({itemData.rating_count} Ratings)</Text> : null}
-            </View>
-        )
-
-    }
+    
+    useEffect(()=>{
+        setWishlist(itemData.is_favorite)
+    },[])
 
     const goToDetailPage = (item) => {
         navigation.navigate('ProductDetailPage', { item })
     }
 
+    const toogleWishlist = () =>{
+        setWishlist(!wishlist)
+    }
 
     return (
         <TouchableOpacity onPress={() => goToDetailPage(itemData)} key={itemData.index} style={hotSales ? styles.cardContainerHotSales : styles.cardContainer}>
             <View style={{ alignItems: 'flex-end', flex: 1 }}>
-                <TouchableOpacity style={styles.buttonWishlist}>
-                    <AntDesign style={{ alignItems: 'flex-end' }} name='hearto' size={22} color={colors.redBadgeInvoice} />
+                <TouchableOpacity onPress={()=>toogleWishlist()} style={styles.buttonWishlist}>
+                    <AntDesign style={{ alignItems: 'flex-end' }} name={wishlist ? 'heart' : 'hearto'} size={22} color={colors.redBadgeInvoice} />
                 </TouchableOpacity>
             </View>
             <View style={hotSales ? styles.containerPriceInfoHotsales : styles.containerPriceInfo}>
@@ -63,13 +42,11 @@ export const CardItem = props => {
                                     <Text style={styles.fontPrice}>${itemData.price}</Text>
                                 </View>
                             </View>
-                            <RatingStar rating={itemData.rating} hotSales={hotSales} totalRating={itemData.rating_count}/>
-                            {/* {renderStarRating(itemData.rating)} */}
+                            <RatingStar rating={itemData.rating} hotSales={hotSales} totalRating={itemData.rating_count} />
                         </>
                         : <>
                             <Text style={styles.fontTitle}>{itemData.title}</Text>
-                            <RatingStar rating={itemData.rating} hotSales={hotSales}/>
-                            {/* {renderStarRating(itemData.rating)} */}
+                            <RatingStar rating={itemData.rating} hotSales={hotSales} />
                             <Text style={styles.fontPrice}>${itemData.price}</Text>
                         </>
                 }

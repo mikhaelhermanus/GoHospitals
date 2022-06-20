@@ -8,10 +8,16 @@ import { getCategory } from '../redux/screenAction/CategoryRedux/action'
 
 const Category = props => {
     const dispatch = useDispatch()
-
+    const refresh = props.refresh
     useEffect(() => {
         dispatch(getCategory())
     }, [])
+
+    useEffect(() => {
+        if (refresh) {
+            dispatch(getCategory())
+        }
+    }, [refresh])
 
     const { listCategory, loading, err } = useSelector(state => state.categoryAuth)
     const _renderCategoryMenu = (item, index) => {

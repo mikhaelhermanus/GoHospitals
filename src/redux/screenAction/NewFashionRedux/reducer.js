@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case HOT_SALES_REQUEST:
-            return { ...state, loadingFash: true }
+            return { ...state, loadingHotSales: true }
         case HOT_SALES_SUCCESS:
             return { ...state, listHotSales: action.payload, loadingHotSales: false, errHotSales: null }
         case HOT_SALES_FAILED:
