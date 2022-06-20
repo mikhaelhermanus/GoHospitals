@@ -6,7 +6,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { resetCart } from '../redux/screenAction/CartRedux/action'
 
 const Header = props => {
     const [wishlist, setWishlist] = useState('')
@@ -14,6 +15,7 @@ const Header = props => {
     const pdp = props.pdp
     const itemDetail = props.itemDetail
     const navigation = props.navigation
+    const dispatch = useDispatch()
     const { cart } = useSelector(state => state.CartReducerAuth)
 
     const cartTotal = cart?.length
@@ -22,6 +24,10 @@ const Header = props => {
         setWishlist(itemDetail?.is_favorite)
         getAvatar()
     }, [])
+
+    const resetCartIndex = () =>{
+        dispatch(resetCart())
+    }
 
     const getAvatar = async () => {
         const value = await AsyncStorage.getItem('avatar')
@@ -79,12 +85,12 @@ const Header = props => {
                             </View>
                         </View>
                     </View>
-                    <View style={styles.borderCart}>
+                    <TouchableOpacity  onPress={()=>resetCartIndex()} style={styles.borderCart}>
                         <View style={styles.containerCartQty}>
                             <Text style={{ color: '#ffffff', textAlign: 'center', fontSize: 10, marginBottom: (Platform.OS === 'ios' ? 0 : 2) }}>{cartTotal}</Text>
                         </View>
                         <AntDesign color={colors.blueSea} name='shoppingcart' size={30} />
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={{ margin: 10 }}>
                     <View style={styles.containerSearch}>
